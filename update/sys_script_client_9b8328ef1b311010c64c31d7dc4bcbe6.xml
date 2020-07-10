@@ -4,39 +4,43 @@
         <applies_extended>false</applies_extended>
         <condition/>
         <description/>
-        <field>short_description</field>
+        <field>u_requested_for</field>
         <global>true</global>
         <isolate_script>false</isolate_script>
         <messages/>
-        <name>NeedIt onChange Example</name>
+        <name>NeedIt Populate Email Field</name>
         <order/>
         <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
-   if (isLoading || newValue === '') {
-      return;
-   }
+    if (isLoading || newValue === '') {
+        return;
+    }
 
-   //Type appropriate comment here, and begin script below
-   alert("You have changed the Short description from " + oldValue + " to " + newValue + ".");
-}
+    var getEmail = new GlideAjax('GetEmailAddress');
+    getEmail.addParam('sysparm_name', 'getData');
+    getEmail.addParam('sysparm_aj_sys_id', newValue);
+    getEmail.getXML(myFunction);
 
+    function myFunction(response) {
+        var emailValue = response.responseXML.documentElement.getAttribute("answer");
+		g_form.setValue('short_description',emailValue);
+    }
 
-
-]]></script>
+}]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2017-02-08 16:54:04</sys_created_on>
+        <sys_created_on>2020-07-10 06:42:31</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>0e18a3fd0f743200cd674f8ce1050e43</sys_id>
-        <sys_mod_count>7</sys_mod_count>
-        <sys_name>NeedIt onChange Example</sys_name>
+        <sys_id>9b8328ef1b311010c64c31d7dc4bcbe6</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>NeedIt Populate Email Field</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
         <sys_policy/>
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
-        <sys_update_name>sys_script_client_0e18a3fd0f743200cd674f8ce1050e43</sys_update_name>
+        <sys_update_name>sys_script_client_9b8328ef1b311010c64c31d7dc4bcbe6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2017-02-09 21:17:16</sys_updated_on>
+        <sys_updated_on>2020-07-10 06:47:27</sys_updated_on>
         <table>x_58872_needit_needit</table>
         <type>onChange</type>
         <ui_type>0</ui_type>
